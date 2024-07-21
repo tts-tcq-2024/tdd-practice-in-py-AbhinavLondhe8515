@@ -5,14 +5,7 @@ def add(numbers: str) -> int:
     delimiter, numbers = parse_delimiter(numbers)
     numbers = numbers.replace("\n", delimiter)
     
-    total_sum = 0
-    for num in numbers.split(delimiter):
-        if num:
-            value = int(num)
-            if value <= 1000:
-                total_sum += value
-    
-    return total_sum
+    return sum(filter(lambda x: x <= 1000, map(int, numbers.split(delimiter))))
 
 def parse_delimiter(numbers: str):
     if numbers.startswith("//"):
