@@ -1,15 +1,11 @@
 def add(numbers: str) -> int:
     if not numbers:
         return 0
-    
-    delimiter = ","
-    if numbers.startswith("//"):
-        delimiter = numbers[2]
-        numbers = numbers[4:]
 
+    delimiter, numbers = parse_delimiter(numbers)
     numbers = numbers.replace("\n", delimiter)
-    total_sum = 0
     
+    total_sum = 0
     for num in numbers.split(delimiter):
         if num:
             value = int(num)
@@ -17,3 +13,12 @@ def add(numbers: str) -> int:
                 total_sum += value
 
     return total_sum
+
+def parse_delimiter(numbers: str):
+    if numbers.startswith("//"):
+        parts = numbers.split("\n", 1)
+        delimiter = parts[0][2:]
+        numbers = parts[1]
+    else:
+        delimiter = ","
+    return delimiter, numbers
