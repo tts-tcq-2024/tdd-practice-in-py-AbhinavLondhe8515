@@ -6,12 +6,13 @@ def add(numbers: str) -> int:
     numbers = numbers.replace("\n", delimiter)
     
     return sum(
-        int(num) for num in numbers.split(delimiter) 
-        if num and int(num) <= 1000
+        min(int(num), 1000) for num in numbers.split(delimiter) if num
     )
 
 def parse_delimiter(numbers: str):
     if numbers.startswith("//"):
-        parts = numbers.split("\n", 1)
-        return parts[0][2:], parts[1]
-    return ",", numbers
+        delimiter = numbers[2]
+        numbers = numbers[4:]
+    else:
+        delimiter = ","
+    return delimiter, numbers
